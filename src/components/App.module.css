@@ -1,0 +1,12 @@
+.App {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 16px;
+    padding-bottom: 24px;
+}
+
+.h2 {
+    font-size: 30px;
+    margin-top: 30px;
+    text-align: center;
+}
