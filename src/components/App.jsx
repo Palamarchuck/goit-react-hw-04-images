@@ -8,6 +8,7 @@ import Button from "./Button";
 import styles from './App.module.css'
 import { ToastContainer } from 'react-toastify';
 
+
 export default class App extends Component {
   state = {
     imagesParameters: '',
@@ -87,7 +88,6 @@ export default class App extends Component {
     const { images, largePicture, tags, status, showModal, showBtn, loaderActive } = this.state;
     return (
       <div className={styles.app}>
-        {/* <div id="modal-root"></div> */}
         <Searchbar onSubmit={this.handleFormSubmit} />
        
         {loaderActive && (
@@ -101,8 +101,8 @@ export default class App extends Component {
         )}
         {showBtn && <Button onClick={this.loadMore} />}
 
-        {showModal && (<Modal
-          onclose={this.toggleModal}
+        {showModal && (<Modal 
+          onClose={this.toggleModal}
           largePicture={largePicture}
           tags={tags} />
         )}
