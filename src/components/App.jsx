@@ -89,16 +89,16 @@ export default class App extends Component {
       <div className={styles.app}>
         {/* <div id="modal-root"></div> */}
         <Searchbar onSubmit={this.handleFormSubmit} />
-        {status === 'idle' && (
-            <h2 className={styles.h2}>Type something</h2>
-        )}
+        {/* {status === 'idle' && (
+            <h3 className={styles.h2}></h3>
+        )} */}
         {loaderActive && (
           <Loader />
         )}
 
         
 
-        {status === 'rejected' && (<h2 className={styles.h2}>{'Not found'}</h2>)}
+        {status === 'rejected' && (<h3 className={styles.h2}>{'Not found'}</h3>)}
 
         {status === 'resolved' && (
           <ImageGallery images={images} openModal={this.toggleModal} />         
