@@ -1,64 +1,47 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './Modal.module.css'
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+
 
 
 
 const modalRoot = document.querySelector('#modal-root')
 
-export default class Modal extends Component {
+export default function Modal({ largePicture, tags, onClose }) {
 
-    componentDidMount() {
-        // console.log('Modal componentDidMount')
-
-        window.addEventListener('keydown',  this.handleKeyDown)
-    }
-    componentWillUnmount() {
-        // console.log('Modal componentWillUnmount')
-        window.removeEventListener('keydown', this.handleKeyDown)
-    }
-
-    handleKeyDown = e => {
-            console.log(e.code)
+    useEffect(() => {
+        const handleKeyDown = e => {
             if (e.code === 'Escape') {
-                // console.log("ESC Закрыть модалку")
-                this.props.onClose();
+                onClose();
             }
         }
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown)
+        }
+        
 
-    handleBackdropClick = event => {
-        // console.log('Клик на бекдроп');
-
-        // console.log('currentTarget:', event.currentTarget);
-        // console.log('target:', event.target);
-
+    }, [onClose]);
+    
+    const handleBackdropClick = event => {
         if (event.currentTarget === event.target) {
-            this.props.onClose();
+        onClose();
         }
 
     }
-
-    toggleModal = () => {
-        this.setState(({ showModal }) => ({
-            showModal: !showModal,
-        }));
-    }
-
-    render() {
-        const { largePicture, tags } = this.props;
-        return createPortal(
-            <div className={styles.overlay} onClick={this.handleBackdropClick}>
+    return createPortal(
+            <div className={styles.overlay} onClick={handleBackdropClick}>
                 <div className={styles.modal}>
                     <img src={largePicture} alt={tags} />
                 </div>
             </div>, modalRoot 
         )
-    };
+    
 }
 
-Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  tags: PropTypes.array,
-  largePicture: PropTypes.string,
-};
+// Modal.propTypes = {
+//   onClose: PropTypes.func.isRequired,
+//   tags: PropTypes.array,
+//   largePicture: PropTypes.string,
+// };

@@ -26,18 +26,14 @@ export default function App () {
     setPage(prevPage => prevPage + 1);
   };
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = imagesParameters => {
     setImagesParameters(imagesParameters);
     setPage(1);
     setImages([]);
     
   }
 
-  const toggleModal = (largeImage, tags) => {
-    setShowModal(!showModal);
-    setLargeImage(largeImage);
-    setTags(tags);
-  };
+ 
 
   useEffect(() => { 
     if (!imagesParameters) return;
@@ -75,6 +71,11 @@ export default function App () {
 
   }, [imagesParameters, page]);
 
+   const toggleModal = (largeImage, tags) => {
+    setShowModal(!showModal);
+    setLargeImage(largeImage);
+    setTags(tags);
+  };
    
   return (
       <div className={styles.app}>

@@ -1,38 +1,31 @@
-import React, { Component } from "react"
+import React, { useState  } from "react"
 import { ImSearch } from 'react-icons/im';
 import { toast } from 'react-toastify';
 import styles from './Searchbar.module.css'
-import PropTypes from 'prop-types';
 
-export default class Searchbar extends Component {
-    static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    };
 
-    state = {
-        imagesParameters:'',
-    }
+const Searchbar = ({onSubmit}) => {
+    const [imagesParameters, setImagesParameters] = useState('');
+   
     
-    handleNameChange = event => {
-        this.setState({ imagesParameters: event.currentTarget.value.toLowerCase() });
+   const handleNameChange = event => {
+        setImagesParameters(event.currentTarget.value.toLowerCase());
         
     }
 
-    handleSubmit = event => {
+    const handleSubmit = event => {
         event.preventDefault();
-        if (this.state.imagesParameters.trim() === '') {
-            return toast.error("Ввести имя!")
-            
+        if (imagesParameters.trim() === '') {
+            return toast.error("Ввести имя!") 
         }
-        this.props.onSubmit(this.state.imagesParameters)
-        this.setState({ imagesParameters: ''})
+        onSubmit(imagesParameters);
+        setImagesParameters('');
     }
 
 
-    render() {
-        return (
+    return (
             <header className={styles.searchbar}>
-                <form className={styles.form} onSubmit={this.handleSubmit}>
+                <form className={styles.form} onSubmit={handleSubmit}>
                     <button type="submit" className={styles.button}>
                         <ImSearch size={20} />
                     </button>
@@ -41,8 +34,8 @@ export default class Searchbar extends Component {
                         className={styles.input}
                         type="text"
                         name="imageName"
-                        value={this.state.imagesParameters}
-                        onChange={this.handleNameChange}
+                        value={imagesParameters}
+                        onChange={handleNameChange}
                         autoComplete="off"
                         autoFocus
                         placeholder="Search images and photos"
@@ -50,5 +43,7 @@ export default class Searchbar extends Component {
                 </form>
             </header>
         );
-    }
+    
 };
+
+export default Searchbar;
